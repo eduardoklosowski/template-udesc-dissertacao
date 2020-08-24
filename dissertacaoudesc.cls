@@ -10,7 +10,7 @@
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{abntex2}}
 \ProcessOptions\relax
-\LoadClass[a4paper,twoside,openright,onecolumn,12pt,chapter=TITLE,section=TITLE]{abntex2}
+\LoadClass[a4paper,oneside,openright,onecolumn,12pt,chapter=TITLE,section=TITLE]{abntex2}
 
 
 % Pacotes
@@ -19,6 +19,7 @@
 \RequirePackage{hyperref}
 \RequirePackage[alf,abnt-emphasize=bf,abnt-etal-list=3,abnt-full-initials=yes,abnt-repeated-author-omit=yes]{abntex2cite}
 \RequirePackage[printonlyused]{acronym}
+\RequirePackage{pdfpages}
 
 \hypersetup{
     pdfcreator={Template para Dissertação da UDESC},
@@ -42,8 +43,6 @@
 
 \makepagestyle{dissertacaoudesc}
 % Conteúdo do cabeçalho
-\makeevenhead{dissertacaoudesc}
-    {\ABNTEXfontereduzida\thepage}{}{}
 \makeoddhead{dissertacaoudesc}
     {}{}{\ABNTEXfontereduzida\thepage}
 
@@ -86,15 +85,10 @@
 \renewcommand{\ABNTEXsubsubsubsectionfontsize}{\normalsize}
 
 
-%% Título e Legenda de Elementos
-
-\captionstyle{\raggedright}  % Alinha a esquerda
-
 % Utiliza tamanho reduzido na legenda
 \let\manuallegend\legend
 \renewcommand{\legend}[1]{
     \manuallegend{\ABNTEXfontereduzida#1}
-    \vspace{-1.5\onelineskip}
 }
 
 
@@ -110,8 +104,8 @@
 \setlength{\beforechapskip}{1.5\onelineskip}  % Espaçamento antes dos Títulos
 \setlength{\midchapskip}{1.5\onelineskip}  % Espaçamento entre os Títulos
 \setlength{\afterchapskip}{1.5\onelineskip}  % Espaçamento depois dos Títulos
-\setlength{\abovecaptionskip}{\onelineskip}  % Espaçamento antes dos Títulos e Legendas de Elementos
-\setlength{\belowcaptionskip}{\onelineskip}  % Espaçamento depois dos Títulos e Legendas de Elementos
+\setlength{\abovecaptionskip}{0cm}  % Espaçamento antes dos Títulos e Legendas de Elementos
+\setlength{\belowcaptionskip}{0cm}  % Espaçamento depois dos Títulos e Legendas de Elementos
 
 
 % Numeração
@@ -127,7 +121,7 @@
 
 \providecommand{\imprimirorientadortitulo}{}
 \newcommand{\orientadortitulo}[1]{\renewcommand{\imprimirorientadortitulo}{#1}}
-\orientadortitulo{Dr.}
+\orientadortitulo{Prof. Dr.}
 
 \providecommand{\imprimirorientadorinstituicao}{}
 \newcommand{\orientadorinstituicao}[1]{\renewcommand{\imprimirorientadorinstituicao}{#1}}
@@ -138,19 +132,22 @@
 
 \providecommand{\imprimircoorientadortitulo}{}
 \newcommand{\coorientadortitulo}[1]{\renewcommand{\imprimircoorientadortitulo}{#1}}
-\coorientadortitulo{Dr.}
+\coorientadortitulo{Prof. Dr.}
 
 \providecommand{\imprimircoorientadorinstituicao}{}
 \newcommand{\coorientadorinstituicao}[1]{\renewcommand{\imprimircoorientadorinstituicao}{#1}}
 
+\providecommand{\imprimirinstituicaosigla}{}
+\newcommand{\instituicaosigla}[1]{\renewcommand{\imprimirinstituicaosigla}{#1}}
+
 \providecommand{\imprimircentro}{}
 \newcommand{\centro}[1]{\renewcommand{\imprimircentro}{#1}}
 
+\providecommand{\imprimircentrosigla}{}
+\newcommand{\centrosigla}[1]{\renewcommand{\imprimircentrosigla}{#1}}
+
 \providecommand{\imprimircurso}{}
 \newcommand{\curso}[1]{\renewcommand{\imprimircurso}{#1}}
-
-\providecommand{\imprimirlocaluf}{}
-\newcommand{\localuf}[1]{\renewcommand{\imprimirlocaluf}{#1}}
 
 \providecommand{\imprimirsubtitulo}{}
 \newcommand{\subtitulo}[1]{\renewcommand{\imprimirsubtitulo}{#1}}
@@ -177,7 +174,7 @@
     \renewcommand{\dedicatorianame}{Dedicatória}
     \renewcommand{\agradecimentosname}{Agradecimentos}
     \renewcommand{\resumoname}{Resumo}
-    \renewcommand{\listfigurename}{Lista de figuras}
+    \renewcommand{\listfigurename}{Lista de ilustrações}
     \renewcommand{\listtablename}{Lista de tabelas}
     \renewcommand{\listadesiglasname}{Lista de abreviaturas e siglas}
     \renewcommand{\listadesimbolosname}{Lista de símbolos}
@@ -187,42 +184,71 @@
 }
 
 
+%% Capa
+\renewcommand{\capa}{
+    \setcounter{page}{0}
+    \begin{center}
+        \textbf{\MakeUppercase{\imprimirinstituicao~--~\imprimirinstituicaosigla}} \\
+        \textbf{\MakeUppercase{\imprimircentro~--~\imprimircentrosigla}} \\
+        \textbf{\MakeUppercase\imprimircurso}
+        \vspace{\fill}
+
+        \textbf{\MakeUppercase\imprimirautor}
+        \vspace{\fill}
+
+        \textbf{\MakeUppercase\imprimirtitulo\abntex@ifnotempty{\imprimirsubtitulo}{:}}
+        \abntex@ifnotempty{\imprimirsubtitulo}{
+            \\
+            \MakeUppercase\imprimirsubtitulo
+        }
+        \abntex@ifnotempty{\imprimirvolume}{
+            \\
+            \textbf{Vol. \imprimirvolume}
+        }
+        \vspace{\fill}
+        \vspace{\fill}
+
+        \textbf{\MakeUppercase\imprimirlocal} \\
+        \textbf{\imprimirdata}
+    \end{center}
+}
+
+
 %% Folha de rosto
 
 \renewcommand{\folhaderostocontent}{
     \begin{center}
-        \begin{SingleSpace}
-            \textbf{\MakeUppercase\imprimirautor}
-            \vspace{\fill}
+        \textbf{\MakeUppercase\imprimirautor}
+        \vspace{\fill}
+        \vspace{\fill}
 
-            \textbf{\MakeUppercase\imprimirtitulo\abntex@ifnotempty{\imprimirsubtitulo}{:}}
-            \abntex@ifnotempty{\imprimirsubtitulo}{
-                \\ \vspace{\onelineskip}
-                \MakeUppercase\imprimirsubtitulo
-            }
-            \abntex@ifnotempty{\imprimirvolume}{
-                \\ \vspace{\onelineskip}
-                \textbf{Vol. \imprimirvolume}
-            }
-            \vspace{4\onelineskip}
+        \textbf{\MakeUppercase\imprimirtitulo\abntex@ifnotempty{\imprimirsubtitulo}{:}}
+        \abntex@ifnotempty{\imprimirsubtitulo}{
+            \\
+            \MakeUppercase\imprimirsubtitulo
+        }
+        \abntex@ifnotempty{\imprimirvolume}{
+            \\
+            \textbf{Vol. \imprimirvolume}
+        }
+        \vspace{\fill}
 
-            \hspace{.45\textwidth}
-            \begin{minipage}{.5\textwidth}
-                \ABNTEXfontereduzida
+        \begin{adjustwidth}{8cm}{0cm}
+            \begin{SingleSpace}
                 \imprimirpreambulo
-                \vspace{\onelineskip}
 
                 \imprimirorientadorrotulo: \imprimirorientadortitulo~\imprimirorientador
                 \abntex@ifnotempty{\imprimircoorientador}{
                     \\
                     \imprimircoorientadorrotulo: \imprimircoorientadortitulo~\imprimircoorientador
                 }
-            \end{minipage}
-            \vspace{\fill}
+            \end{SingleSpace}
+        \end{adjustwidth}
+        \vspace{\fill}
+        \vspace{\fill}
 
-            \textbf{\imprimirlocal, \imprimirlocaluf} \\
-            \textbf{\imprimirdata}
-        \end{SingleSpace}
+        \textbf{\MakeUppercase\imprimirlocal} \\
+        \textbf{\imprimirdata}
     \end{center}
 }
 
@@ -256,42 +282,49 @@
 
 %% Folha de Aprovação
 
-\setlength{\ABNTEXsignwidth}{12cm}
-
 \newenvironment{folhadeaprovacaoexemplo}{
-    \begin{SingleSpace}
-        \begin{center}
-            \textbf{\MakeUppercase\imprimirautor}
-            \vspace{2\onelineskip}
-
-            \textbf{\MakeUppercase\imprimirtitulo\abntex@ifnotempty{\imprimirsubtitulo}{:}}
-            \abntex@ifnotempty{\imprimirsubtitulo}{
-                \MakeUppercase\imprimirsubtitulo
-            }
-            \abntex@ifnotempty{\imprimirvolume}{
-                \\ \vspace{\onelineskip}
-                \textbf{Vol. \imprimirvolume}
-            }
-        \end{center}
-        \vspace{\onelineskip}
-
-        \noindent\imprimirpreambulo
+    \begin{center}
+        \OnehalfSpacing
+        \textbf{\MakeUppercase\imprimirautor}
         \vspace{2\onelineskip}
 
-        \noindent\textbf{Banca Examinadora:}
+        \textbf{\MakeUppercase\imprimirtitulo\abntex@ifnotempty{\imprimirsubtitulo}{:}}
+        \abntex@ifnotempty{\imprimirsubtitulo}{
+            \MakeUppercase\imprimirsubtitulo
+        }
+        \abntex@ifnotempty{\imprimirvolume}{
+            \\
+            \textbf{Vol. \imprimirvolume}
+        }
+        \vspace{2\onelineskip}
 
-        \noindent\imprimirorientadorrotulo:\assinatura{\imprimirorientadortitulo~\imprimirorientador \\ \imprimirorientadorinstituicao}
+        \begin{adjustwidth}{8cm}{0cm}
+            \begin{SingleSpace}
+                \imprimirpreambulo
+            \end{SingleSpace}
+        \end{adjustwidth}
+        \vspace{2\onelineskip}
+
+        \textbf{\MakeUppercase{Banca Examinadora}}
+        \vspace{2\onelineskip}
+
+        \imprimirorientadortitulo~\imprimirorientador \\ \imprimirorientadorinstituicao
+        \vspace{2\onelineskip}
 
         \abntex@ifnotempty{\imprimircoorientador}{
-            \noindent\imprimircoorientadorrotulo:\assinatura{\imprimircoorientadortitulo~\imprimircoorientador \\ \imprimircoorientadorinstituicao}
+            \imprimircoorientadortitulo~\imprimircoorientador \\ \imprimircoorientadorinstituicao
+            \vspace{2\onelineskip}
         }
+    \end{center}
+    Membros:
+    \vspace{2\onelineskip}
+    \begin{center}
+        \OnehalfSpacing
 }{
         \vspace{\fill}
 
-        \begin{center}
-            \imprimirlocal, \imprimirdatacompleta
-        \end{center}
-    \end{SingleSpace}
+        \imprimirlocal, \imprimirdatacompleta
+    \end{center}
 }
 
 
@@ -302,11 +335,10 @@
 \renewenvironment{dedicatoria}{
     \manualdedicatoria
     \vspace*{\fill}
-    \hspace{.45\textwidth}
-    \begin{minipage}{.5\textwidth}
+    \begin{adjustwidth}{8cm}{0cm}
 }{
-    \end{minipage}
-    \vspace*{\fill}
+    \end{adjustwidth}
+    \vspace{2\onelineskip}
     \endmanualdedicatoria
 }
 

@@ -12,7 +12,7 @@
 % Descomente a linha a seguir para mudar o rótulo "Orientador:"
 %\orientadorrotulo{Orientadora}
 % Descomente a linha a seguir para mudar o título do orientador
-%\orientadortitulo{Dra.}
+%\orientadortitulo{Prof. Dra.}
 \orientador{Nome do Orientador}
 \orientadorinstituicao{UDESC}
 
@@ -20,7 +20,7 @@
 % Informações do Coorientador
 
 %\coorientadorrotulo{Coorientadora}
-%\coorientadortitulo{Dra.}
+%\coorientadortitulo{Prof. Dra.}
 % Descomente as linhas a seguir caso o trabalho tenha um coorientador
 %\coorientador{Nome do Coorientador}
 %\coorientadorinstituicao{UDESC}
@@ -29,11 +29,12 @@
 % Informações da Instituição
 
 \instituicao{Universidade do Estado de Santa Catarina}
+\instituicaosigla{UDESC}
 \centro{Centro de Ciências Tecnológicas}
-\curso{Mestrado em Computação Aplicada}
+\centrosigla{CCT}
+\curso{Mestrado Acadêmico em Computação Aplicada}
 \tipotrabalho{Dissertação}
 \local{Joinville}
-\localuf{SC}
 
 
 % Informações do Trabalho
@@ -45,7 +46,7 @@
 \data{2020}
 \palavraschave{Latex. Abntex. Editoração de texto.}
 \keywords{Latex. Abntex. Text editoration.}
-\preambulo{Dissertação submetida ao Programa de Pós-Graduação em Computação Aplicada do Centro de Ciências Tecnológicas da Universidade do Estado de Santa Catarina, para a obtenção do grau de Mestre em Computação Aplicada.}
+\preambulo{Dissertação apresentada ao Programa de Pós-Graduação em Computação Aplicada, da Universidade do Estado de Santa Catarina, como requisito parcial para obtenção do grau de Mestre em Computação Aplicada.}
 
 
 % Metadados do PDF
@@ -61,8 +62,7 @@
 % Conteúdo
 
 \begin{document}
-    % Descomente a linha a baixo caso queira incluir o PDF da capa
-    %\includepdf{capa.pdf}
+    \capa
 
 
     % Elementos Pré-textuais
@@ -70,7 +70,7 @@
     \imprimirfolhaderosto*
 
     \begin{fichacatalografica}
-        % Gere a ficha em <https://fichacatalografica.sistemas.udesc.br/> e a inclua com o comando a baixo
+        % Siga as intruções em <https://www.udesc.br/bu/manuais/ficha> e a inclua com o comando a baixo
         %\includepdf{ficha_catalografica.pdf}
         % Ou utilize o exemplo a seguir:
         \begin{fichacatalograficaexemplo}
@@ -84,12 +84,14 @@
     \end{fichacatalografica}
 
     \begin{folhadeaprovacao}
-        % Descomente a linha a baixo para incluir o PDF da folha de aprovação, ou utilize o exemplo a seguir
-        %\includepdf{folha_de_aprovacao.pdf}
         \begin{folhadeaprovacaoexemplo}
-            \assinatura{Dr. Nome Completo 1 \\ UDESC}
-            \assinatura{Dr. Nome Completo 2 \\ UDESC}
-            \assinatura{Dr. Nome Completo 3 \\ UDESC}
+            Dr. Nome Completo 1 \\ UDESC
+            \vspace{2\onelineskip}
+
+            Dr. Nome Completo 2 \\ UDESC
+            \vspace{2\onelineskip}
+
+            Dr. Nome Completo 3 \\ UDESC
         \end{folhadeaprovacaoexemplo}
     \end{folhadeaprovacao}
 
